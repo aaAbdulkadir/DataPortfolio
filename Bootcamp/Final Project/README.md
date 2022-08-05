@@ -18,3 +18,6 @@ o	          Identify any data quality issues which could affect your implementat
 •	Implement the ETL to create and populate the tables in PowerBI ensuring all counts reconcile.
 
 •	Create a set of visualisations to meet the reporting requirements contained in the brief.
+
+
+- I used python to understand, clean and peform EDA of the data, I created an OLAP star scheam on SQL and finished it up with a dashboard on PowerBI.
