@@ -20,4 +20,4 @@ The project brief is as follows:
 -	Create a set of visualisations to meet the reporting requirements contained in the brief.
 
 
-I used python to understand, clean and peform EDA of the data, I created an OLAP star scheam on SQL and finished it up with a dashboard on PowerBI.
+I used python to understand, clean and peform EDA of the data, I created an OLAP star schema on SQL and finished it up with a dashboard on PowerBI.
