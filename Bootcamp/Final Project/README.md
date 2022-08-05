@@ -6,18 +6,18 @@ They wish to analyse sales to determine the most popular menu items and also tho
 
 The project brief is as follows:
 
-•	Review the case study and identify the business requirements from a reporting perspective. Your overall objective is to design a data warehouse capable of reporting on the questions the business wish to answer.
+-	Review the case study and identify the business requirements from a reporting perspective. Your overall objective is to design a data warehouse capable of reporting on the questions the business wish to answer.
 
-•	Perform an assessment of the initial dataset to:
+-	Perform an assessment of the initial dataset to:
 
-o           Understand the data items and how they relate together.
-o	          Identify any data quality issues which could affect your implementation.
+--           Understand the data items and how they relate together.
+--           Identify any data quality issues which could affect your implementation.
 
-•	Design the schema to satisfy the requirements.
+-	Design the schema to satisfy the requirements.
 
-•	Implement the ETL to create and populate the tables in PowerBI ensuring all counts reconcile.
+- Implement the ETL to create and populate the tables in PowerBI ensuring all counts reconcile.
 
-•	Create a set of visualisations to meet the reporting requirements contained in the brief.
+-	Create a set of visualisations to meet the reporting requirements contained in the brief.
 
 
-- I used python to understand, clean and peform EDA of the data, I created an OLAP star scheam on SQL and finished it up with a dashboard on PowerBI.
+I used python to understand, clean and peform EDA of the data, I created an OLAP star scheam on SQL and finished it up with a dashboard on PowerBI.
