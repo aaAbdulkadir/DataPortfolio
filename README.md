@@ -4,5 +4,5 @@ This folder consists of all of the work I have done recently in data. The tools 
 - Python webscraping (selenium, beautifulsoup)
 - SQL for analytics
 - Machine learning (scikit-learn)
-- Data warehouse creation (OLAP star schema)
-- BI reporting (Tableau, PowerBI.
+- Data warehouse creation (OLAP star schema on SQL)
+- BI reporting (Tableau, PowerBI)
