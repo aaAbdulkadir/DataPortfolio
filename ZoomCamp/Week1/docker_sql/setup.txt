@@ -1,0 +1,194 @@
+# ran in git bash to create a docker container with specific environment for postgress and -v to save data 
+
+ docker run -it \
+  -e POSTGRES_USER="root" \
+  -e POSTGRES_PASSWORD="root" \
+  -e POSTGRES_DB="ny_taxi" \
+  -v c:/users/abdulkadir/documents/programming/personal/datascience/zoomcamp/'week 1'/docker_sql/ny_taxi_postgres_data:/var/lib/postgresql/data \
+  -p 5432:5432 \
+  postgres:13
+
+  
+# get pgAdmin
+
+docker pull dpage/pgadmin4
+
+docker run -it \
+-e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
+-e PGADMIN_DEFAULT_PASSWORD="root" \
+-p 8080:80 \
+dpage/pgadmin4
+
+-- then go to localhost:8080 -- at this point, cannot connect my docker container postgres db to local host pgadmin as they are two different containers, need to be connected
+
+# link db to pgAdmin by using networks
+
+# with network
+
+docker create network pg-network
+
+docker run -it \
+  -e POSTGRES_USER="root" \
+  -e POSTGRES_PASSWORD="root" \
+  -e POSTGRES_DB="ny_taxi" \
+  -v c:/users/abdulkadir/documents/programming/personal/datascience/zoomcamp/'week 1'/docker_sql/ny_taxi_postgres_data:/var/lib/postgresql/data \
+  -p 5432:5432 \
+  --network=pg-network \
+  --name pg-database \
+  postgres:13
+
+
+docker run -it \
+-e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
+-e PGADMIN_DEFAULT_PASSWORD="root" \
+-p 8080:80 \
+--network=pg-network \
+--name pgadmin \
+dpage/pgadmin4
+
+NOTE: if you close the dockers, rather than running it, you start it up
+i.e. docker start (name) and docker stop (name) to turn them off
+
+# currently, each docker is running on its own terminal
+
+# dockerizing the ingestion script
+
+-- firstly, created a python scrip to collect data and ingest into db
+
+URL = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet"
+
+python ingest_data.py \
+    --user=root \
+    --password=root \
+    --host=localhost \
+    --port=5432 \
+    --db=ny_taxi \
+    --table_name=yellow_taxi_data \
+    --url=${URL} \
+
+
+# use curl to get csv from command line
+$ curl -kLSs https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet -o testing.parquet
+
+Ss silent mode
+
+python ingest_data.py \
+    --user=root \
+    --password=root \
+    --host=localhost \
+    --port=5432 \
+    --db=ny_taxi \
+    --table_name=yellow_taxi_data \
+    --url="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet" 
+
+
+
+# the docker file has been created now:
+
+docker build -t taxi_ingest:v001 .
+
+
+# now when running the docker use the built docker name:
+
+docker run -it taxi_ingest:v001 \
+    --user=root \
+    --password=root \
+    --host=localhost \
+    --port=5432 \
+    --db=ny_taxi \
+    --table_name=yellow_taxi_data \
+    --url="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet" 
+
+NOTE: if you add extra libaries to pip install make sure to rebuild the docker.
+NOTE: include the network in the docker as its localhost is the container itself therefore change localhost ot pg-database and include the netwrok to connect to our db
+
+docker run -it \
+    --network=pg-network \
+    taxi_ingest:v001 \
+    --user=root \
+    --password=root \
+    --host=pg-database \
+    --port=5432 \
+    --db=ny_taxi \
+    --table_name=yellow_taxi_data \
+    --url="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet" 
+
+NOTE:  everything after the name of the docker is arg variables.
+
+
+# next step, taking the two docker files and run it in one yaml file: docker compose
+# docker compose puts multiple containers into one file
+
+services:
+  pg-database:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=ny_taxi
+    volumes:
+      - "c:/users/abdulkadir/documents/programming/personal/datascience/zoomcamp/week1/docker_sql/ny_taxi_postgres_data:/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - "8080:80"
+
+# creating a yaml file by combining the two containers into a yaml format
+# no network is needed as it is in one yaml file so they're connected
+
+once the docker yaml file is created, type in the terminal
+ docker-compose up
+
+ # created a yaml file that ingests the data aswell
+
+ NOTENOTEON: I WAS TRYING TO CONFIGURE A NETWORK FOR THE DOCKER COMOPSE SO 
+ THAT I CAN DOCKER RUN THE PYTHON SCRIPT ANY TIME I WANNA INGEST DATA
+
+ -----------
+
+version: '3.4'
+services:
+  pg-database:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=ny_taxi
+    volumes:
+      - "c:/users/abdulkadir/documents/programming/personal/datascience/zoomcamp/week1/docker_sql/ny_taxi_postgres_data:/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - "8080:80"
+networks:
+  default:
+    external:
+      name: pg-network
+
+# I included a network so I can use the same network in the docker container I 
+built to ingest the data using the python file with arugments i.e.
+
+docker run -it \
+    --network=pg-network \
+    taxi_ingest:v001 \
+    --user=root \
+    --password=root \
+    --host=pg-database \
+    --port=5432 \
+    --db=ny_taxi \
+    --table_name=yellow_taxi_data \
+    --url="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet" 
+
+
+
+ 
