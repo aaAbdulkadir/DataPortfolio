@@ -175,6 +175,9 @@ networks:
     external:
       name: pg-network
 
+
+# run this docker compose file by typing: docker-compose up
+
 # I included a network so I can use the same network in the docker container I 
 built to ingest the data using the python file with arugments i.e.
 
