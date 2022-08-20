@@ -1,4 +1,0 @@
-winpty docker build -t test:pandas .   # builds the docker environment
-
-winpty docker run -it test:pandas      # runs the docker environment
-
