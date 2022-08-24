@@ -1,0 +1,122 @@
+docker run -it \
+-e "ACCEPT_EULA=Y" \
+-e "MSSQL_SA_PASSWORD=securePassword121" \
+-p 1433:1433 \
+--name mssql-test \
+--hostname mypc \
+--network=sqlserver-network \
+-d mcr.microsoft.com/mssql/server:2022-latest
+
+# you can access your db from SSMS but your password has to be secure to work, so I changed from root to a longer password.
+
+# ingest database
+
+server name = "localhost,1433"
+authentication = sql server authentication
+login = "sa"
+passsword = your pw
+
+
+python ingest.py \
+    --user=sa \
+    --password=securePassword121 \
+    --server=localhost,1433 \
+    --db=test_db \
+    --table_name=ny_taxi \
+    --url="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet" 
+
+
+# create container with python script and db in it
+
+services:
+  mssql-db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=securePassword121
+    ports:
+      - "1433:1433"
+  pythonapp: 
+    build: ./
+    command: python3 ./ingest.py
+
+
+  # issue with pyodbc in the docker compose so use this image
+      docker pull laudio/pyodbc
+  
+  change dockerfile to have FROM python:3.9 to FROM laudio/pyodbc:1.0.38
+
+  NOTE: still does not work/ no pyodbc error occurs when I try to put python ingestion 
+  into docker compose 
+
+
+services:
+  mssql-db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=securePassword121
+    ports:
+      - "1433:1433"
+networks:
+  default:
+    external:
+      name: sqlserver-network
+
+docker build -t mssql-ingestion .
+
+docker run -it \
+    --network=sqlserver-network \
+    mssql-ingestion \
+    --user=sa \
+    --password=securePassword121 \
+    --server=localhost,1433 \
+    --db=test_db \
+    --table_name=ny_taxi \
+    --url="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet" 
+
+# this docker environment does not have the ODBC driver for sql so download it
+
+
+python ingest.py \
+    --user=sa \
+    --password=securePassword121 \
+    --server=localhost,1433 \
+    --db=test_db \
+    --table_name=ny_taxi \
+    --url="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet" 
+
+
+
+
+docker run -it \
+-e "ACCEPT_EULA=Y" \
+-e "MSSQL_SA_PASSWORD=securePassword121" \
+-p 1433:1433 \
+--name mssql-test \
+--network=sqlserver-network \
+mcr.microsoft.com/mssql/server:2022-latest
+
+docker run -it \
+  --name python-blaster \
+  --network=sqlserver-network \
+  python-ingestinator \
+  --user=sa \
+  --password=securePassword121 \
+  --server=localhost,1433 \
+  --db=test_db \
+  --table_name=ny_taxi \
+  --url="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet" 
+
+## this container does not have ODBC driver for sql
+
+docker run -it \
+  --name python-blaster \
+  --network=sqlserver-network \
+  tadeorubio/pyodbc-msodbcsql17 \
+  --user=sa \
+  --password=securePassword121 \
+  --server=localhost,1433 \
+  --db=test_db \
+  --table_name=ny_taxi \
+  --url="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet" 

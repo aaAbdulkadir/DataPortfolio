@@ -1,0 +1,22 @@
+services:
+  mssql-db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=securePassword121
+    # volumes:
+    #   - c:/Users/Abdulkadir/Documents/Programming/Personal/DataScience/ZoomCamp/week1/mssql_docker/mssql-db/:/var/opt/mssql/data
+    ports:
+      - "1433:1433"
+  pythonapp:
+    build: ./
+    # command: python3 ingest.py 
+    environment:
+    - --user=sa 
+    - --password=securePassword121 
+    - --server=localhost,1433 
+    - --db=test_db 
+    - --table_name=ny_taxi 
+    - --url=https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-01.parquet
+    depends_on:
+      - mssql-db
