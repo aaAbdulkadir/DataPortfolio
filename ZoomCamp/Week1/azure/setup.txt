@@ -1,0 +1,35 @@
+----- AZURE TERRAFORM RESOURCE GROUP AND STORAGE ACCOUNT SETUP WITH A CONTAINER -----
+
+STEP 1: INSTALL AZURE CLI 
+    https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli
+
+    -- have version: azure-cli                         2.39.0
+
+STEP 2: LOG INTO AZURE USING CLI
+
+    -- az login
+
+    once logged in you will see some information of your account pop up on the cli
+
+STEP 3: CREATE AZURE TERRAFORM FILE TO CREATE A RESOURCE GROUP, STORAGE ACCOUNT AND CONTAINER (BLOB STORAGE)
+
+this link shows how to create a resource group using terraform:
+    https://docs.microsoft.com/en-us/azure/developer/terraform/create-resource-group?tabs=azure-cli
+
+this link shows how to create a data lake storage gen2 using terraform:
+    https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_data_lake_gen2_filesystem
+
+
+STEP 4: ONCE THE TEMPLATE IS COMPLETE RUN THE FOLLOWING COMMANDS IN CLI
+
+    -- terraform init
+    -- terraform plan -out main.tfplan
+    -- terraform apply main.tfplan
+
+STEP 5: VERIFY IT HAS BEEN MADE
+
+    -- az group show --name <resource_group_name>
+    
+    OR CHECK ON AZURE
+
+STEP 6: GRANT ACCESS TO YOURSELF FOR BLOB STORAGE
