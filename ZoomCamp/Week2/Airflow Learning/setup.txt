@@ -1,0 +1,74 @@
+STEP 1: DOWNLOAD AIRFLOW DOCKER COMPOSE 
+
+    curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.3.4/docker-compose.yaml'
+
+    -- DOWNLOADS DAGS, LOGS, PLUGINS FOLDERS AND DOCKER COMPOSE
+        (if not, create a dags, logs and plugins folder)
+            mkdir -p ./dags ./logs ./plugins
+
+STEP 2: WILL USE LOCAL EXECUTOR SO NEED TO CHANGE THE DOCKER COMPOSE FILE TO MAKE IT LIGHTWEIGHT
+
+    -- CeleryExecutor to LocalExecutor
+    -- Delete celery executor in environment
+    -- Delete redis as it is necessary for celery
+    -- Delete celery worker and flower
+    -- AIRFLOW__CORE__LOAD_EXAMPLES == false, not have example dags
+
+STEP 3: INITIALISE ENVIRONMENT
+
+    -- echo -e "AIRFLOW_UID=$(id -u)" > .env
+    ONLY FOR LINUX BUT JUST IN CASE
+
+STEP 4: DOCKER COMPOSE UP
+
+    -- docker-compose up airflow-init
+
+STEP 5: RUN IT DOCKER COMPOSE
+
+    -- docker-compose up
+
+STEP 6: AIRFLOW DAG WITH BASH OPERATOR
+
+    Under the dags folder, create a python file
+    
+    -- pip install apache-airflow
+
+USING POSTGRESS WITH AIRFLOW
+ 
+STEP 1: GO TO THE DOCKER COMPOSE FILE AND ADD THE PORTS 5432 UNDER POSTGRESS
+
+STEP 2: ADD PGADMIN TO HAVE A LOOK AT THE DATA IF YOU WANT
+    -- added the docker comopse for pg admin and changed the port number to 8081:80 as 
+        port 8080 is taken by airflow
+
+STEP 3: NEW DAG PYTHON FILE 
+    -- same dag principles but import postgres modules for airflow
+    -- go to airflow website > connections > create a connection
+
+        conn_id = postgres_localhost
+        connection type = postgres
+        schema = {database name} --> create temp one from pgadmin [this is db the tables saves in]
+        NOTE: cannot connect to pgadmin serer...update: the host name = 'host.docker.internal'
+            USE AIRFLOW SCHEMA THATS DEFAULT DB
+        host name = host.docker.internal which connects to airflow and pgadmin
+        login and pw is in the docker compose
+
+    -- copy connection id once connected to python file
+            postgres_localhost       
+    -- save the python file and run the dag in airflow and you should see the db is in 
+        pgadmin  
+        
+STEP: DEPENDENCIES. HOW TO INSTALL PYTHON PACKAGES TO AIRFLOW 
+
+    -- create requirements.txt with the dependencies you need
+    -- create a dockerfile
+    -- run the following command in cli:
+        docker build . --tag extending_airflow:latest
+    -- go to docker compose and change the image name from
+            ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.3.4}
+        to 
+            ${AIRFLOW_IMAGE_NAME:-extending_airflow:latest}
+    -- create new python file to see if it works by importing sklearn
+        rebuild docker compose by using the following:
+            docker-compose up -d --no-deps --build airflow-webserver airflow-scheduler
+            or simply rebuild the dockercompose
