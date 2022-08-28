@@ -1,0 +1,105 @@
+INGESTION THE NY TAXI DATA TO LOCAL AIRFLOW
+
+STEP 1: DOWNLOAD AIRFLOW DOCKER COMPOSE 
+
+    curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.3.4/docker-compose.yaml'
+
+    -- DOWNLOADS DAGS, LOGS, PLUGINS FOLDERS AND DOCKER COMPOSE
+        (if not, create a dags, logs and plugins folder)
+            mkdir -p ./dags ./logs ./plugins
+
+STEP 2: WILL USE LOCAL EXECUTOR SO NEED TO CHANGE THE DOCKER COMPOSE FILE TO MAKE IT LIGHTWEIGHT
+
+    -- CeleryExecutor to LocalExecutor
+    -- Delete celery executor in environment
+    -- Delete redis as it is necessary for celery
+    -- Delete celery worker and flower
+    -- AIRFLOW__CORE__LOAD_EXAMPLES == false, not have example dags
+
+STEP 3: INITIALISE ENVIRONMENT
+
+    -- echo -e "AIRFLOW_UID=$(id -u)" > .env
+    ONLY FOR LINUX BUT JUST IN CASE
+
+STEP 4: DOCKER COMPOSE UP
+
+    -- docker-compose up airflow-init
+
+STEP 5: RUN IT DOCKER COMPOSE
+
+    -- docker-compose up
+
+login:airflow, password:airflow, localhost:8080, postgres mapped to 8081.
+
+STEP 6: EDIT DOCKER COMPOSE TO INCLUDE NEW DOCKER BUILD 
+
+    -- go to docker compose and change the image name from
+            ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.3.4}
+        to 
+            ${AIRFLOW_IMAGE_NAME:-extending_airflow:latest}
+
+        to build it on image created in dockerfile
+
+    -- Include in the dockerfile, a requirements.txt file with all dependencies
+    
+    -- build docker with: docker build . --tag extending_airflow:latest
+
+    -- docker-compose up airflow-init
+        docker-compose build
+        docker-compose up
+
+STEP 7: DOWNLOAD THE FILE USING BASH OPERATOR DAG AS SEEN IN THE CODE   
+
+    TO SEE WHETHER IT WAS DOWNLOADED SUCCESSFULLY, 
+
+        - docker ps to see the container id for airflow_airflow-worker i.e.
+          where the file is stored and copy it
+        - go into the bash of this worker container by doing:
+                -- docker exec -it container_id bash
+                -- ls
+                -- more {file_name.csv/parquet} <-- prints some rows of the file
+                -- to see how many rows:
+                    -- wc -l {file_name.csv/parquet}
+                    -- ls -lh <-- see size of the files in the directory
+        NOTE: THIS CAN ONLY BE DONE FOR THE DOCKER CONMPOSE  'airflow-worker'
+              AS IT SHOWS THE NECESSARY WORK, WHICH I DELETED TO MAKE AIRFLOW
+              EASIER TO RUN.
+        NOTE: EASIER WAY IS TO OPEN DOCKER APP AND PRESS TERMINAL ON THE DOCKER
+              IMAGE YOU WANT TO INSPECT.
+
+STEP 8: THE DATA THAT NEEDS TO BE DOWNLOADED IS THE JANUARY DATA IN JANUARY,
+THE FEB DATA IN FEB, ETC.. HENCE CHANGE FILE NAME USING JINGA PYTHON TEMPLATE
+TO GET IT EXACTLY HOW IT WILL BE IN THE URL 
+    -- {{ execution_date.strftime(\'%Y-%m\') }}
+
+STEP 9: INGESTING THE DATA USING THE INGEST SCRIPT
+    -- only keep the part where you read file name and ingest the DATA
+    -- make it a function and import it into the main dag python file
+    -- the variables in the function i.e. user passord host port, need to BE
+        imported somehow so save it in the .env file 
+    -- go to the docker compose file and add these variables in the environmeent
+        section under x-airflow-common
+    -- add these variables to the dag python script
+
+STEP 10: HOW TO CONNECT THE OLD DOCKER COMPOSE DB TO THIS AIRFLOW DOCKER COMPOSE 
+         INGESTION PROCESS
+
+         -- add an external network to the old docker compose file in wwek1 
+
+                networks:
+                  airflow:
+                    external:
+                      name: airflow_default
+
+                and under the docker name i.e. pg-database and pgadmin:
+                add 
+                    networks:
+                      - airflow
+
+                    which relates to the external network
+
+
+NOTE: now we have 2 postgres db running, the airflow postgers db and the one from
+      week 1 which I created.
+
+        -- ports will clash for postgres db, remove port for airflow postgres db
