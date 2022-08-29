@@ -13,7 +13,7 @@ URL_TEMPLATE = URL_PREFIX + '/yellow_tripdata_{{ execution_date.strftime(\'%Y-%m
 AIRFLOW_HOME = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
 OUTPUT_FILE_TEMPLATE = AIRFLOW_HOME + '/output_{{ execution_date.strftime(\'%Y-%m\') }}.parquet'
 OUTPUT_FILE_TEMPLATE_CSV = AIRFLOW_HOME + '/output_{{ execution_date.strftime(\'%Y-%m\') }}.csv'
-TABLE_NAME_TEMPLATE = 'ny_taxi_{{ execution_date.strftime(\'%Y_%m\') }}'
+TABLE_NAME_TEMPLATE = 'ny_taxi_{{ execution_date.strftime(\'%Y_%m\') }}.csv'
 
 CONTAINER_NAME = os.getenv('CONTAINER_NAME')
 AZURE_STORAGE_CONNECTION_STRING = os.getenv('AZURE_STORAGE_CONNECTION_STRING')
