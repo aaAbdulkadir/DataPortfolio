@@ -7,3 +7,7 @@ Dag diagram
 Data uploaded to the container
 
 ![image](https://user-images.githubusercontent.com/72317571/187198201-38594830-3b6a-453f-92bc-6e1a23e2b1d2.png)
+
+Moved data to Azure Synapse Analytics and is ready for analysis
+
+![image](https://user-images.githubusercontent.com/72317571/187244058-a91bd906-d0fb-406e-acbb-86fbdcfbdc54.png)
