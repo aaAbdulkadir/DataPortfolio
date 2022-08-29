@@ -1,0 +1,23 @@
+Ingestion ny taxi data to Azure using Airflow:
+
+STEP 1: LOG INTO AZURE USING CLI
+
+    -- az login
+
+    once logged in you will see some information of your account pop up on the cli
+
+
+STEP 2: CONNECT AZURE TO AIRFLOW (PYTHON)
+
+    https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=environment-variable-windows
+
+    -- pip install azure-storage-blob
+
+    -- go to storage account and under access keys, copy the connection
+       string under key1
+
+    -- export AZURE_STORAGE_CONNECTION_STRING "<yourconnectionstring>"
+
+    -- follow instructions on page
+
+Build docker container and docker file with tag -- azure_ingestion:latest
