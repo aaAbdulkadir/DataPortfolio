@@ -1,1 +1,1 @@
-Apache airflow
+Week 2 consisted of learning Apache Airflow and combining the previous week of docker knowledge to Airflow. Created workflows that collected and ingested data into my docker container postgres database created in week 1 and likewise, ingested data into Azure.
