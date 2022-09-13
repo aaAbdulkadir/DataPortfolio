@@ -1,3 +1,7 @@
+# CoinMarketCap Crypto Tracking
+
+An automated data pipeline which ...
+
 ![image](https://user-images.githubusercontent.com/72317571/189979496-bd6b6c8c-4819-40a7-9cc6-f9c36b276c35.png)
 
 
