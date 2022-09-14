@@ -204,3 +204,7 @@ At this point, a connection to PowerBI can be created by importing the data via 
 To automate the process in which the pipeline is run and the dashboard updates, the VM needs to be on for the docker file to be running. To save money, it is recommnended to start up the VM, leave it running for 10 minutes during the time the DAG runs daily (9am), and then turn of the VM. This can be achieved by setting up an automation task in the VM resource, shown below:
 
 ![image](https://user-images.githubusercontent.com/72317571/189703825-c54b2e5e-3771-45b8-aeeb-1c1f7f84163d.png)
+
+## Improvements
+
+To make this project better, it would be more ideal to run this docker file using an Azure Container Instance rather than a VM, to reduce costs.
