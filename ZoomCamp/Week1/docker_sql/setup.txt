@@ -127,7 +127,7 @@ services:
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=ny_taxi
     volumes:
-      - "c:/users/abdulkadir/documents/programming/personal/datascience/zoomcamp/week1/docker_sql/ny_taxi_postgres_data:/var/lib/postgresql/data"
+      - "~/docker_sql/ny_taxi_postgres_data:/var/lib/postgresql/data"
     ports:
       - "5432:5432"
   pgadmin:
@@ -160,7 +160,7 @@ services:
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=ny_taxi
     volumes:
-      - "c:/users/abdulkadir/documents/programming/personal/datascience/zoomcamp/week1/docker_sql/ny_taxi_postgres_data:/var/lib/postgresql/data"
+      - "~/docker_sql/ny_taxi_postgres_data:/var/lib/postgresql/data"
     ports:
       - "5432:5432"
   pgadmin:
