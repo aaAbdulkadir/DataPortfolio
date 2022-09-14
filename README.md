@@ -6,6 +6,7 @@ This folder consists of all of the work I have done recently in data. The tools 
 - SQL for analytics
 - Data warehouse creation (OLAP star schema on SQL)
 - BI reporting (Tableau, PowerBI)
-- Docker and Docker Compose
-- Apache Airflow and Spark
-- Terraform
+- Postgres, MSSQL databases using Docker containers and their respective GUI i.e. PgAdmin and MSSMS
+- Scheduled Pipelines using Airflow
+- Data transformation using Spark
+- Infrastructure as Code using Terraform
