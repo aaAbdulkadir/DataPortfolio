@@ -180,9 +180,11 @@ At this point, the following images should be running:
 
 ![image](https://user-images.githubusercontent.com/72317571/189698064-8edef73e-8b20-4a24-b959-e128df25a08b.png)
 
-
+To connect to the Airflow website i.e. localhost:8080, the port 8080 needs to be forwarded from the VM to your local machine. This can be done on VSC by locating the port tab next to terminal and forwading the port as follows:
 
 ![image](https://user-images.githubusercontent.com/72317571/189697958-9b2aa7ae-63f4-4bf4-b86d-3f8b64b06a64.png)
+
+
 
 ![image](https://user-images.githubusercontent.com/72317571/189716955-38a48a20-c817-400f-a6e6-4136516d303f.png)
 
