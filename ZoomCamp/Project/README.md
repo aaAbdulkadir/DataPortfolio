@@ -30,7 +30,7 @@ This project consists of working with batch data to create a dashboard for monit
 
 ### Final Result
 
-![image](https://user-images.githubusercontent.com/72317571/189973524-320d0fee-0c44-4ef9-b519-23627ab3971a.png)
+![image](https://user-images.githubusercontent.com/72317571/190189542-2839ba74-a45c-4b52-8407-2c9fed5ae7b2.png)
 
 ## Methodology
 
