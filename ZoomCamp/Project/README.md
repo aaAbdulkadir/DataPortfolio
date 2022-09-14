@@ -46,16 +46,32 @@ Before starting the project, the following must be installed or created:
 
 ### Project Walkthrough
 
-The first step in this project wasw to create an Infrastructure using terraform i.e. the resources needed on Azure. In this case, the resources that were created were a resource group with a storage account, blob storage and a virtual machine with all its dependencies. The IaC can be seen [HERE](https://github.com/aaAbdulkadir/Data-Science/blob/main/ZoomCamp/Project/Terraform/main.tf). 
+The first step in this project is to create an Infrastructure using terraform i.e. the resources needed on Azure. In this case, the resources that are created are a resource group with a storage account, blob storage and a virtual machine with all its dependencies. The IaC can be seen [here](https://github.com/aaAbdulkadir/Data-Science/blob/main/ZoomCamp/Project/Terraform/main.tf). 
 
-Once the infrastructure was written, it was deployed by firstly logging into the Azure CLI through the terminal:
+Once the infrastructure is written, it can be deployed by firstly logging into the Azure CLI through the terminal:
 
 ```bash
 az login
 ```
 
-This redirects you to your browser to log into your Azure account.
+This redirects to the browser to log into your Azure account. Once logged in, the IaC needs to be initialised, which can be done as follows:
 
+```bash
+terraform init
+```
+
+This initialises a working directory containing Terraform configuration files.
+
+```bash
+terraform plan -out main.tfplan
+```
+
+This creates a Terraform plan which can then be pushed to create the plan on Azure using the following:
+
+
+```bash
+terraform apply main.tfplan
+```
 
 ![image](https://user-images.githubusercontent.com/72317571/189697582-990fe968-aa22-485f-8a25-5a518e250050.png)
 
