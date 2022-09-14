@@ -1,4 +1,4 @@
-# CoinMarketCap Cryptocurrency Dashboard For Monitoring
+# CoinMarketCap Cryptocurrency Monitoring
 
 An automated data pipeline which ...
 
