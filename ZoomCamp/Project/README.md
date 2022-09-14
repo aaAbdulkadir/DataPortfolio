@@ -13,11 +13,17 @@ This project consists of working with batch data to create a dashboard for monit
 
 
 - Terraform
+  -- Create the Azure infrastructure using code
 - Azure
+  -- Deploy resources and specifically a VM to host the pipeline to run on
 - Docker
+  -- Hosts Airflow via docker-compose and all the dependencies needed for Spark and Python via Dockerfile
 - Apache Airflow
+  -- The pipeline governing the process of moving data
 - Apache Spark
+  -- Transforming the data
 - PowerBI
+  -- Visualise the data
 
 
 ![image](https://user-images.githubusercontent.com/72317571/189979496-bd6b6c8c-4819-40a7-9cc6-f9c36b276c35.png)
