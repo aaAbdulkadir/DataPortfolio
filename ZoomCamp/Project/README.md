@@ -77,7 +77,28 @@ After a few minutes, the plan should successfully be created in Azure as shown b
 
 ![image](https://user-images.githubusercontent.com/72317571/189697582-990fe968-aa22-485f-8a25-5a518e250050.png)
 
-After creating the infrastructure, the next step is to connect to the virtual machine.
+After creating the infrastructure, the next step is to connect to the virtual machine. After turning on the virtual machine, it can be connected to via an SSH key which was created from Terraform and stored in the home directory, in a folder called ssh (~/.ssh/). The VM can be connected to as follows:
+
+```bash
+ssh -i ~/.ssh/{key_name}.pem {User}@{IP}
+```
+where the key name and user are decided in terraform and the IP can be found on Azure. At this point, the connection to the VM via the CLI is established but using Visual Studio Code is preferred as you can access the code needed to run the pipeline. To do this, download the remote ssh extension on VSC and create a config file which will be used to connect to host of the VM. The config file should consists of the VM Username, IP and location of the ssh key on your machine, like the following example:
+
+```bash
+Host {project name}
+    HostName {IP}
+    User {USER}
+    IdentityFile {SSH KEY PATH}
+```
+
+With this created, a connection to the VM via VSC can be established.
+
+The next stage is to then download Docker and Docker Compose onto the VM. Firstly update the package list on the VM by typing the following:
+
+```bash
+sudo apt-get update
+```
+
 
 ![image](https://user-images.githubusercontent.com/72317571/189698064-8edef73e-8b20-4a24-b959-e128df25a08b.png)
 
