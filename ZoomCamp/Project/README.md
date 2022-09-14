@@ -184,13 +184,18 @@ To connect to the Airflow website i.e. localhost:8080, the port 8080 needs to be
 
 ![image](https://user-images.githubusercontent.com/72317571/189697958-9b2aa7ae-63f4-4bf4-b86d-3f8b64b06a64.png)
 
+After forwading the port, you can go to localhost:8080 and turn on the data ingestion DAG.
 
 
 ![image](https://user-images.githubusercontent.com/72317571/189716955-38a48a20-c817-400f-a6e6-4136516d303f.png)
 
+The DAG is scheduled to run everyday at 9am and consists of the following process:
+
 
 ![image](https://user-images.githubusercontent.com/72317571/189716741-68f5f195-1e81-4163-be8b-327ef8964d7f.png)
 
+
+Once the DAG finishes running, in your blob storage, the following files would have been imported:
 
 ![image](https://user-images.githubusercontent.com/72317571/189702901-3091cf92-c6e5-4aba-9f5d-cc606417b543.png)
 
