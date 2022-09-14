@@ -24,3 +24,5 @@ In this github repository course, I had the opportunity to learn the following t
 
 - Working with big data
 - Spark and SQL transformations
+
+## Postgres, pgAdmin, SQL
