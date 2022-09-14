@@ -1,12 +1,12 @@
 # CoinMarketCap Cryptocurrency Monitoring
 
-An automated data pipeline which ...
+An automated data pipeline which consists of using Terraform, Docker, Airflow, Spark, Azure and PowerBI.
 
 ## Overview
 
 ### Objective 
 
-This project consists...
+This project consists of working with batch data to create a dashboard for monitoring crypto currencies on a daily basis. The data will be collected from CoinMarketCap (a crypto currency website) and transformations will be applied to have the data ready for monitoring via a dashboard.
 
 
 ### Technologies and Architecture
