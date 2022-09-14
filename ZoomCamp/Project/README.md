@@ -13,7 +13,7 @@ This project consists of working with batch data to create a dashboard for monit
 
 
 - Terraform
-  -- Create the Azure infrastructure using code
+  - Create the Azure infrastructure using code
 - Azure
   -- Deploy resources and specifically a VM to host the pipeline to run on
 - Docker
