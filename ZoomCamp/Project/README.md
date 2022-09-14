@@ -207,4 +207,4 @@ To automate the process in which the pipeline is run and the dashboard updates, 
 
 ## Improvements
 
-To make this project better, it would be more ideal to run this docker file using an Azure Container Instance rather than a VM, to reduce costs.
+To make this project better, it would be more ideal to run this docker file using an Azure Container Instance rather than a VM, to reduce costs. Addtitionally, implementing CI/CD with the Airflow pipeline for validation would take the project to the next level.
