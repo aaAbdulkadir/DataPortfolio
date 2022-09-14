@@ -2,10 +2,30 @@
 
 An automated data pipeline which ...
 
+## Overview
+
+### Objective 
+
+This project consists...
+
+
+### Technologies and Architecture
+
+
+- Terraform
+- Azure
+- Docker
+- Apache Airflow
+- Apache Spark
+
+
 ![image](https://user-images.githubusercontent.com/72317571/189979496-bd6b6c8c-4819-40a7-9cc6-f9c36b276c35.png)
 
+### Final Result
 
 ![image](https://user-images.githubusercontent.com/72317571/189973524-320d0fee-0c44-4ef9-b519-23627ab3971a.png)
+
+## Methodology
 
 Steps
 
