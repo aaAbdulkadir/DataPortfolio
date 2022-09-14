@@ -154,6 +154,24 @@ sudo chmod -R 777 ~/{WorkingDirectory}
 
 Where WorkingDirectory is the directory in which the files exist.
 
+Before running Airflow using docker, the connection string which is used to connect python to Azure blob storage to store the data is needed and can be found by going to the storage account where the blob storage is, and locating the *Access Keys* blade. After this has been extracted, it can be placed in an .env file alongside the rest of the variables needed such as the cointainer name of the blob and an CMC API key to extract the data. Then, run docker as follows:
+
+```bash
+docker-compose up airflow-init
+```
+
+After initialising Airflow, build the docker-compose file and run it:
+
+```bash
+docker-compose build
+```
+
+```bash
+docker-compose up -d
+```
+where $-d$ indicated detached mode, to continue using the terminal.
+
+
 ![image](https://user-images.githubusercontent.com/72317571/189698064-8edef73e-8b20-4a24-b959-e128df25a08b.png)
 
 ![image](https://user-images.githubusercontent.com/72317571/189697958-9b2aa7ae-63f4-4bf4-b86d-3f8b64b06a64.png)
