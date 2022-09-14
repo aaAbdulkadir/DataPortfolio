@@ -40,7 +40,7 @@ Before starting the project, the following must be installed or created:
 
 - Azure
   - An account with a subscription
-  - Azure CLI
+  - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 
 Steps
 
