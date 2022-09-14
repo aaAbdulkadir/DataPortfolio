@@ -99,6 +99,26 @@ The next stage is to then download Docker and Docker Compose onto the VM. Firstl
 sudo apt-get update
 ```
 
+Docker can be downloaded as follows:
+
+
+```bash
+sudo apt-get install docker.io
+```
+If there are issues with permissions of *docker without sudo*, they can be resolved by simply typing: 
+
+
+```bash
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+
+```bash
+
+```
+
 
 ![image](https://user-images.githubusercontent.com/72317571/189698064-8edef73e-8b20-4a24-b959-e128df25a08b.png)
 
