@@ -2,7 +2,7 @@
 
 In this github repository course, I had the opportunity to learn the following topics:
 
-## Docker
+### Docker
 
 - Building images
 - Docker-compose
@@ -10,19 +10,19 @@ In this github repository course, I had the opportunity to learn the following t
 - Port Mapping
 - Linux
 
-## Terraform
+### Terraform
 
 - Using Infrastructure as Code
 - Initiliasing, planning and applying infrastructure to Azure
 
-## Airflow
+### Airflow
 
 - How to run Airflow on Docker
 - Creating DAGs
 
-## Spark
+### Spark
 
 - Working with big data
 - Spark and SQL transformations
 
-## Postgres, pgAdmin, SQL
+### Postgres, pgAdmin, SQL
