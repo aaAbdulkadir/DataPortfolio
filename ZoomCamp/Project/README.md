@@ -169,10 +169,18 @@ docker-compose build
 ```bash
 docker-compose up -d
 ```
-where $-d$ indicated detached mode, to continue using the terminal.
+where *-d* indicated detached mode, to continue using the CLI. To see whether Airflow is running smoothly, the following command shows the images that are up and running:
+
+```bash
+docker ps
+```
+
+At this point, the following images should be running:
 
 
 ![image](https://user-images.githubusercontent.com/72317571/189698064-8edef73e-8b20-4a24-b959-e128df25a08b.png)
+
+
 
 ![image](https://user-images.githubusercontent.com/72317571/189697958-9b2aa7ae-63f4-4bf4-b86d-3f8b64b06a64.png)
 
