@@ -199,8 +199,10 @@ Once the DAG finishes running, in your blob storage, the following files would h
 
 ![image](https://user-images.githubusercontent.com/72317571/189702901-3091cf92-c6e5-4aba-9f5d-cc606417b543.png)
 
+At this point, a connection to PowerBI can be created by importing the data via Azure Blob storage, whereby the URL for the container is needed and can be found under the *Properties* blade.
 
 
+<!-- ? -->
 
 
 automation
