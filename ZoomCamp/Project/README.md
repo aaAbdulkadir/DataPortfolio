@@ -41,8 +41,11 @@ Before starting the project, the following must be installed or created:
 - Azure
   - An account with a subscription
   - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
+ 
+- Terraform
+  - [Download](https://learn.hashicorp.com/tutorials/terraform/install-cli)
 
-Steps
+### Project Walkthrough
 
 ![image](https://user-images.githubusercontent.com/72317571/189697582-990fe968-aa22-485f-8a25-5a518e250050.png)
 
