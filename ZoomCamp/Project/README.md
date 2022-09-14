@@ -114,9 +114,30 @@ sudo usermod -aG docker $USER
 newgrp docker
 ```
 
+Likewise, to download Docker Compose, firstly make a directory in the VM called bin and download the executable in there. In this case, the linux version was downloaded. The versions of docker compose for different systems can be found on the [Docker Compose Github](https://github.com/docker/compose).
 
 ```bash
+mkdir bin
+```
 
+Download the version of docker compose that you require and save it as docker-compose in the bin folder:
+
+```bash
+wget https://github.com/docker/compose/releases/download/v2.10.2/docker-compose-linux-x86_64 -O docker-compose
+```
+
+Then, make it an executable:
+
+```bash
+chmod +x docker-compose
+```
+
+Save it to path so that it can be run anywhere on the CLI:
+
+```bash
+nano .bashrc
+   export PATH="${HOME}/bin:${PATH}"
+source .bashrc
 ```
 
 
