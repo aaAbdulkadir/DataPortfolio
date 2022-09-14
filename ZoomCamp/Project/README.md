@@ -73,7 +73,11 @@ This creates a Terraform plan which can then be pushed to create the plan on Azu
 terraform apply main.tfplan
 ```
 
+After a few minutes, the plan should successfully be created in Azure as shown below.
+
 ![image](https://user-images.githubusercontent.com/72317571/189697582-990fe968-aa22-485f-8a25-5a518e250050.png)
+
+After creating the infrastructure, the next step is to connect to the virtual machine.
 
 ![image](https://user-images.githubusercontent.com/72317571/189698064-8edef73e-8b20-4a24-b959-e128df25a08b.png)
 
