@@ -140,6 +140,19 @@ nano .bashrc
 source .bashrc
 ```
 
+To test if Docker Compose is weorking successfully, found out the version installed as follows:
+
+```bash
+docker-compose version
+```
+
+At this point, the files needed to run the Airflow DAGs need to be put onto the VM, which can simply be done by dragging the files into the VSC VM directory. Another way would be to git clone the files from this directory. If there are any issues with editing files due to permissions, the following can reolve this:
+
+```bash
+sudo chmod -R 777 ~/{WorkingDirectory}
+```
+
+Where WorkingDirectory is the directory in which the files exist.
 
 ![image](https://user-images.githubusercontent.com/72317571/189698064-8edef73e-8b20-4a24-b959-e128df25a08b.png)
 
