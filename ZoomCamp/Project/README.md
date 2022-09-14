@@ -48,9 +48,9 @@ Before starting the project, the following must be installed or created:
 
 The first step in this project wasw to create an Infrastructure using terraform i.e. the resources needed on Azure. In this case, the resources that were created were a resource group with a storage account, blob storage and a virtual machine with all its dependencies. The IaC can be seen [HERE](https://github.com/aaAbdulkadir/Data-Science/blob/main/ZoomCamp/Project/Terraform/main.tf). Once the infrastructure was written, it was deployed by firstly logging into the Azure CLI:
 
-'''
+```bash
 az login
-'''
+```
 
 ![image](https://user-images.githubusercontent.com/72317571/189697582-990fe968-aa22-485f-8a25-5a518e250050.png)
 
