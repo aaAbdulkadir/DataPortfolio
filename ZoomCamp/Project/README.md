@@ -26,7 +26,7 @@ This project consists of working with batch data to create a dashboard for monit
   - Visualise the data
 
 
-![image](https://user-images.githubusercontent.com/72317571/189979496-bd6b6c8c-4819-40a7-9cc6-f9c36b276c35.png)
+![image](https://user-images.githubusercontent.com/72317571/191299277-89d27c12-c84d-4f06-83ab-559189b913af.png)
 
 ### Final Result
 
