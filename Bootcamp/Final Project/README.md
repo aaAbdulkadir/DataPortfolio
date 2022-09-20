@@ -7,10 +7,10 @@ They wish to analyse sales to determine the most popular menu items and also tho
 The project brief is as follows:
 
 -	Review the case study and identify the business requirements from a reporting perspective. Your overall objective is to design a data warehouse capable of reporting on the questions the business wish to answer.
-
--	Perform an assessment of the initial dataset to:
-   -- Understand the data items and how they relate together.
-   -- Identify any data quality issues which could affect your implementation.
+   
+- Perform an assessment of the initial dataset to:
+  - Understand the data items and how they relate together.
+  - Identify any data quality issues which could affect your implementation.
 
 -	Design the schema to satisfy the requirements.
 
