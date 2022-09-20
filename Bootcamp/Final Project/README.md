@@ -28,4 +28,5 @@ I used python to understand, clean and peform EDA of the data, I created an OLAP
 
 ## Final Result
 
+![20JGohUXVk](https://user-images.githubusercontent.com/72317571/191286893-1619bf70-529d-4249-a851-320f8b0db948.png)
 
