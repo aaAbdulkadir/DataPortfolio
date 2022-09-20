@@ -10,8 +10,8 @@ The project brief is as follows:
 
 -	Perform an assessment of the initial dataset to:
 
-- - Understand the data items and how they relate together.
-- - Identify any data quality issues which could affect your implementation.
+ - - Understand the data items and how they relate together.
+ - - Identify any data quality issues which could affect your implementation.
 
 -	Design the schema to satisfy the requirements.
 
