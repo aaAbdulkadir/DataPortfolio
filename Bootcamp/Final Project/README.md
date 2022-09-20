@@ -25,3 +25,6 @@ The project brief is as follows:
 ## Tools Used
 
 I used python to understand, clean and peform EDA of the data, I created an OLAP star schema on SQL and finished it up with a dashboard on PowerBI.
+
+## Final Result
+
