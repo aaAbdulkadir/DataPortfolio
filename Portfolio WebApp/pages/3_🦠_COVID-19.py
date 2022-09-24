@@ -4,6 +4,7 @@ import geopandas
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from matplotlib import pyplot as plt
 import plotly.express as px
+import numpy as np
 
 # title
 st.header("# COVID-19")
@@ -174,7 +175,7 @@ with final_result:
     
 
     option = st.selectbox(
-    'Select metric to view global data in that category',
+    'How did COVID-19 spread across the globe? Select metric to view global data in that category',
     ('Cases', 'Deaths', 'Vaccinations'))
 
     if option == 'Cases':
@@ -209,13 +210,38 @@ with final_result:
         return fig
 
     option = st.selectbox(
-    'Select metric to view leading data in that category',
+    'Which countries are affected the most for its population? Select metric to view leading data in that category',
     ('Cases', 'Deaths'))
 
     if option == 'Deaths':
         st.plotly_chart(bar_chart(e, 'total_deaths_per_population'))
     else:
         st.plotly_chart(bar_chart(f, 'total_cases_per_population'))
+
+
+    # world vaccition chart
+    st.subheader('Total Vaccination Status')
+
+    st.write('How does the vaccination status vary across the globe?')
+
+    i = pd.read_csv('portfolio/pages/data/covid/i.csv')
+
+    i = i.rename(columns={'people_fully_vaccinated':'Full Vaccination', 'people_vaccinated': 'Vaccination','population':'Population'})
+
+    fig = px.histogram(i, x='location', y=[i['Full Vaccination'], i['Vaccination'], i['Population']],
+             barmode='group',
+             histfunc='avg',
+             height=400)
+
+    fig.update_layout(yaxis_title='', xaxis_title='Location', title={
+            'text':"Difference in vaccinations across the continents",
+            'y':.95,
+            'x':0.5,
+            'xanchor': 'center',
+            'yanchor': 'top'})
+        
+    st.plotly_chart(fig)
+
 
 
     # vaccination pie chart
@@ -239,9 +265,55 @@ with final_result:
         fig = px.pie(data, values='value', names='index', color_discrete_sequence=px.colors.sequential.Greens_r)
         return fig
 
-    st.subheader('Total Vaccination Status')
-    st.plotly_chart(vaccination_piechart(g))
-    st.plotly_chart(vaccination_piechart(h))
+    option = st.selectbox(
+    'What is the vaccination percentage in the world? Select metric to view vaccination data',
+    ('Fully vs Partial Vaccination', 'Population Vaccination'))
+
+    if option == 'Fully vs Partial Vaccination':
+        st.plotly_chart(vaccination_piechart(g))
+    else:
+        st.plotly_chart(vaccination_piechart(h))
+
+
+    # -- Annual Statistics -- #
+
+    st.write('')
+    st.write('')
+    
+    st.subheader('Annual Statistics')
+
+    st.write('')
+    j = pd.read_csv('portfolio/pages/data/covid/j.csv')
+    k = pd.read_csv('portfolio/pages/data/covid/k.csv')
+    l = pd.read_csv('portfolio/pages/data/covid/l.csv')
+
+    option = st.selectbox(
+    'Select metric to view annual data in that category',
+    ('Cases', 'Deaths', 'Vaccinations'))
+
+    def annual_barchart(data, feature):
+        fig = px.bar(data, x='year', y=feature)
+        title = feature.split('_')[1:]
+        title = ' '.join(title).title()
+        fig.update_layout(yaxis_title=title.title(), xaxis_title='Year',title={
+            'text':f"Total {title} vs Year",
+            'y':.95,
+            'x':0.5,
+            'xanchor': 'center',
+            'yanchor': 'top'})
+        return fig
+
+
+    if option == 'Cases':
+        st.plotly_chart(annual_barchart(j, 'new_cases'))
+    elif option == 'Deaths':
+        st.plotly_chart(annual_barchart(k, 'new_deaths'))
+    else:
+        st.plotly_chart(annual_barchart(l, 'new_people_vaccinated_smoothed'))
+
+
+
+
     
 
 
