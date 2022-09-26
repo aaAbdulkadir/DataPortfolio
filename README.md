@@ -1,4 +1,4 @@
-# Data-Science
+# Main
 This folder consists of all of the work I have done recently in data. The tools that I have used are Python, SQL, Tableau, PowerBI, Docker, Terraform, Apache Airflow and Spark. I have done projects using:
 - Python for data analytics (pandas, numpy, matplotlib, seaborn)
 - Python webscraping (selenium, beautifulsoup)
