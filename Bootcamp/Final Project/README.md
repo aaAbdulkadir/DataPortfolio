@@ -24,11 +24,11 @@ The project brief is as follows:
 
 ## Tools Used
 
-I used python to understand, clean and peform EDA of the data, I created an OLAP star schema on SQL and finished it up with a dashboard on PowerBI.
+I used python to understand, clean and peform EDA of the data, I created an OLAP star schema on MSSQL and finished it up with a dashboard on PowerBI.
 
 ## Final Result
 
 ![20JGohUXVk](https://user-images.githubusercontent.com/72317571/191286893-1619bf70-529d-4249-a851-320f8b0db948.png)
 
-Or you can read my final [report](https://github.com/aaAbdulkadir/DataPortfolio/blob/main/Bootcamp/Final%20Project/Galleria_Data_Warehouse_Completed_V3.pdf)
+Or you can read my final [report](https://github.com/aaAbdulkadir/DataPortfolio/blob/main/Bootcamp/Final%20Project/Galleria_Data_Warehouse_Completed_V3.pdf) where I explain the project in full.
 
