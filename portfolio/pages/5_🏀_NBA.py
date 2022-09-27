@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 # title
 st.markdown("# NBA")
@@ -12,7 +13,7 @@ caption = '''
 '''
 st.caption(caption)
 
-overview, technologies, architectures = st.tabs(["Overview", "Technologies", "Architecture"])
+overview, technologies, architectures, results = st.tabs(["Overview", "Technologies", "Architecture", "Final Results"])
 
 with overview:
     overview_string = """
@@ -51,3 +52,31 @@ with technologies:
 with architectures:
     st.subheader('Architectural Diagram')
     st.image('portfolio/pages/nba.png')
+
+with results:
+
+    st.subheader('Regression')
+
+    st.caption('''Prediction of MVP winner each year, but to predict the 2
+    022 winner. The data ranges from 1987 to 2022. The accuracy with the combination of
+    two models is .72, where both models had a mean RMSE of less than 0.002 of the
+    predictions.
+    ''')
+
+    reg = pd.read_csv('portfolio/pages/data/nba/regression.csv', index_col=[0])
+    reg = reg.rename(columns={'Rk':'Rank',
+                            'Final_Predicted_Rk':'Predicted Rank',
+                            'Final_Predicted_Winner':'Predicted Winner'
+                            })
+    st.write(reg)
+
+    st.subheader('Classification')
+
+    st.caption('''Prediction of position of a player playing in the 2022 season. 0, 1 and 2 corresponds to
+    the positions 0:[PG], 1:[SG, SF], 2:[PF, C].
+    The data ranges from 1987 to 2022. The precision, recall and f1-score is .77, .76, .76
+    ''')
+
+    classif = pd.read_csv('portfolio/pages/data/nba/classification.csv', index_col=[0])
+    classif = classif.rename(columns={'prediction':'Prediction'})
+    st.write(classif)

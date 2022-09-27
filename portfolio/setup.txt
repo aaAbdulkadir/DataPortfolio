@@ -52,3 +52,6 @@ issues with git asking pw all the time, fix github config
 	- git pull
 	- 
 
+pip freeze > requirments.txt <-- gives all libraries and versions
+
+share.streamlit.io to publish website
