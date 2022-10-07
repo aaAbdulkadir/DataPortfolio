@@ -63,4 +63,4 @@ st.markdown('## Looking to Learn')
 
 st.write(['Kubernetes', 'CI/CD', 'Kafka'])
 
-st.write('And learn more in eveyrthing that I have started learnt or started learning.')
+st.write('And learn more in everything that I have learnt or started learning.')
