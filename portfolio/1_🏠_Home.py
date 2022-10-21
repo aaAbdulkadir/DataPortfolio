@@ -52,15 +52,16 @@ st.json({
     ],
     'SQL':['TSQL', 'Data Warehousing'],
     'Data Visualisation': ['PowerBI', 'Tableau'],
-    'Azure Fundamentals': ['AZ-900', 'Synapse Analytics', 'Storage', 'Virtual Machines'],
+    'Azure Fundamentals': ['AZ-900', 'Synapse Analytics', 'Storage', 'Virtual Machines', 'Azure Kubernetes Service', 'Azure Container Registry'],
     'IaC':'Terraform',
-    'Containers': 'Docker',
+    'Containers': ['Docker', 'Kubernetes'],
     'CLI':['Linux','Git'],
-    'Apache':['Spark', 'Airflow']})
+    'Apache':['Spark', 'Airflow'],
+    'CI/CD':['Jenkins']})
 
 st.markdown('## Looking to Learn')
 
 
-st.write(['Kubernetes', 'CI/CD', 'Kafka'])
+st.write(['AWS', 'Kafka', 'CI/CD with GitLab'])
 
 st.write('And learn more in everything that I have learnt or started learning.')
