@@ -46,4 +46,4 @@ with technologies:
         st.write('Provisioned a virtual machine for the jenkins pipeline to run on, which built a docker image of the web app and pushed it into the container registry, which was pulled to the kubernetes service for deployment.')
 with architectures:
     st.subheader('Architectural Diagram')
-    st.image('pages/plan.png')
+    st.image('portfolio/pages/plan.png')
