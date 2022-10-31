@@ -1,0 +1,191 @@
+Plan:
+
+-- Use terraform to create IaC on Azure for a resource group, storage account, maybe store the data in a data lake or blob storage, a vm so that I can run the whole process in a vm to 
+achieve a replicable environment for anyone.
+        -- only thing is the azure details should be different for each person
+
+-- Create an Airlfow docker environment that takes data, transforms it and ingests it into Azure data lake or blob storage. The dockerfile should contain all the necesarry dependencies and
+packages that will be needed on the vm
+
+-- PowerBI dashboard.
+
+___________________________________________
+
+STEP 1: Create terraform IaC
+
+        include resource group, storage account, blob, vm, synapse
+
+        Running terraform:
+
+        -- az login (to log into your azure account)
+        -- terraform init
+        -- terraform plan -out main.tfplan
+        -- terraform apply main.tfplan
+
+        terraform apply -destroy <-- to get rid of everything that was created
+
+
+        VERIFY IT HAS BEEN MADE
+
+        -- az group show --name <resource_group_name>
+
+        OR CHECK ON AZURE
+
+        Issues:
+        -- firewall with azure synapse analytics.
+        -- access level for data lake
+        -- synapse anaylytics sql pool
+
+        Fix: for SQL pool, it has to do with access. Go to the storage account
+                to IAM and add a role assignment: Storage Blob Data Contributor
+
+                -- added it in the terraform code but double check
+
+        UPDATE: ran spark locally so got rid of pools
+
+STEP 2: Connect to VM
+
+        a file with azure ssh key saves in directory --> save it to ssh folder
+        or change file path to ssh folder in tf
+
+        run:
+        
+        -- ssh -i ~/.ssh/azure_key.pem Abdulkadir@IP
+
+
+        on vm now
+
+STEP 3: Download relevant cli stuff on VM
+        
+        - sudo apt-get update 
+
+        - DOCKER: sudo apt-get install docker.io
+
+                --permissions of docker (docker without sudo)
+                https://docs.docker.com/engine/install/linux-postinstall/
+
+                        -- sudo groupadd docker
+                        -- sudo usermod -aG docker $USER
+                        -- newgrp docker
+
+
+        - DOCKER-COMPOSE:
+
+                - mkdir bin
+                - wget link_of_github_repo_with_docker_compose
+                        -- wget https://github.com/docker/compose/releases/download/v2.10.2/docker-compose-linux-x86_64 -O docker-compose
+                - chmod +x docker-compose <-- make it executable
+                - nano .bashrc <-- save path to run it anywhere
+                        export PATH="${HOME}/bin:${PATH}"
+                        ctrl o, enter, ctrl x
+                - source .bashrc
+                - which docker-compose 
+                - docker-compose version
+
+
+        - PYSPARK
+        
+        https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/week_5_batch_processing/setup/linux.md
+
+                - get java
+
+                        https://jdk.java.net/archive/
+
+                        version 11:
+
+                        -- mkdir spark
+
+                        -- wget https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
+
+                        -- tar xzvf openjdk-11.0.2_linux-x64_bin.tar.gz <-- unpack tar file
+
+                        -- rm openjdk-11.0.2_linux-x64_bin.tar.gz <-- it has been unpacked so remove tar file 
+
+                        -- export JAVA_HOME="${HOME}/spark/jdk-11.0.2"
+                        
+                        -- export PATH="${JAVA_HOME}/bin:${PATH}"
+
+                        -- which java <-- check if it works
+
+                        -- java --version
+
+                - get spark
+
+
+                        https://spark.apache.org/downloads.html
+
+                        -- wget https://dlcdn.apache.org/spark/spark-3.3.0/spark-3.3.0-bin-hadoop3.tgz
+
+                        -- tar xzvf spark-3.3.0-bin-hadoop3.tgz
+
+                        -- rm spark-3.3.0-bin-hadoop3.tgz
+
+                        -- export SPARK_HOME="${HOME}/spark/spark-3.3.0-bin-hadoop3"
+
+                        -- export PATH="${SPARK_HOME}/bin:${PATH}"
+
+                        -- spark-shell <-- check if it works
+
+
+                - save pathfile in bashrc
+
+                        -- nano .bashrc
+
+                                export JAVA_HOME="${HOME}/spark/jdk-11.0.2"
+                                export PATH="${JAVA_HOME}/bin:${PATH}"
+
+                                export SPARK_HOME="${HOME}/spark/spark-3.3.0-bin-hadoop3"
+                                export PATH="${SPARK_HOME}/bin:${PATH}"
+
+                        -- source .bashrc
+
+                        restart vm
+
+        UPDATE: save spark and java onto dockerfile --> refer to dockerfile
+
+STEP 4: GET ONTO VSC ON THE VM
+
+        - remote ssh extension on vsc
+
+        - add config file 
+
+                -- connect to remote ssh extension
+
+                        -- ssh username@IP --> it saves to /.ssh/ folder
+
+                    Host project-az-vm
+                        HostName IP_address
+                        User name_of_user
+                        IdentityFile file_path_of_ssh_key
+
+STEP 5: GET FILES ONTO THE VM
+
+        - just copy paste them onto the vm vsc or git clone from my github if replicating on another machine
+
+                -- any editing permissions file: sudo chmod -R 777 ~/project
+
+
+STEP 6: RUN AIRFLOW
+
+        make sure the connection string to the python blob storage is correct
+        forward port on vsc to access website
+
+        docker-compose up airflow-init
+        docker-compose build
+        docker-compose up -d
+
+        -- to check airflow.. docker exec -it id bash
+
+STEP 7: MAKE SURE TO RUN EVERYDAY USING AZURE AUTOMATION
+
+        -- under vm go to automation tasks
+                select start machine at certain time
+                do the same for end
+
+STEP 8: CREATE DASHBOARD ON POWERBI BY CONNECTING DATA TO IT
+
+        -- open powerbi and import azure blob storage. get link from blob storage
+
+
+
+
