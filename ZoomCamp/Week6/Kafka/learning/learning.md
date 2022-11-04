@@ -45,6 +45,24 @@ Install Kafka on python
 pip install kafka-python
 ```
 
-## Continue
+## Producer
 
+- A kafka producer publishes a message to the kafka topic
 
+## Consumer
+
+- A kafka consumer reads the message from the kafka topic and reads in order.
+
+![image](images/producerconsumer.png)
+
+## Partitions
+
+- One topic can have multiple partitions.
+
+![image](images/partition.png)
+
+Partitioning takes the single topic log and breaks it into multiple logs, each of which can live on a separate node in the Kafka cluster. This way, the work of storing messages, writing new messages, and processing existing messages can be split among many nodes in the cluster..
+
+- Order is maintained within the partition but not across the partitions.
+
+![image](images/partitions2.png)
