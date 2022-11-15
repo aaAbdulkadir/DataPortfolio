@@ -7,7 +7,7 @@ Producer collects streaming data and sent to kafka. The consumer will be used to
 - Create python virtual environment. 
 
 ```
-python3 -m venv venv
+python3 -m venv
 ```
 
 - Activate the virtual environment
