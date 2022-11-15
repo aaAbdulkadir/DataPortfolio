@@ -19,56 +19,16 @@ client = tweepy.Client(
     TWITTER_ACCESS_TOKEN_SECRET
     )
     
-query = 'covid -is:retweet'
-tweet_fields = ['created_at', 'lang']
-expansions=['author_id']
+# queries and filters
+topic = '"world cup" worldcup'
 
-response = client.search_recent_tweets(query=query, max_results=10)
+# gets the actual tweets with the specific conditions
+def response(topic):
+    # query by topic, that is not a retweet, in english and in the UK or US
+    query = f'{topic} -is:retweet lang:en'
+    return client.search_recent_tweets(query=query, max_results=10).data
 
-for tweet in response.data:
+for tweet in response(topic):
     print(tweet.text)
-
-# client = tweepy.Client(
-#     TWITTER_BEARER_TOKEN, 
-#     TWITTER_KEY, 
-#     TWITTER_SECRET_KEY, 
-#     TWITTER_ACCESS_TOKEN, 
-#     TWITTER_ACCESS_TOKEN_SECRET
-#     )
-# auth = tweepy.OAuth1UserHandler(
-#     TWITTER_KEY, 
-#     TWITTER_SECRET_KEY, 
-#     TWITTER_ACCESS_TOKEN, 
-#     TWITTER_ACCESS_TOKEN_SECRET
-#     )
-# api = tweepy.API(auth)
-
-# search_terms = ["btc"]
-
-# testers = []
-
-# class MyStream(tweepy.StreamingClient):
-
-#     # This function gets called when the stream is working
-#     def on_connect(self):
-#         print("Connected")
-
-#     # This function gets called when a tweet passes the stream
-#     def on_tweet(self, tweet):
-#         # Displaying tweet in console
-#         if tweet.referenced_tweets == None:
-#             # print(tweet.text)
-#             client.like(tweet.id)
-#             testers.append(tweet.text)
-#             print(tweet.text)
-#             print('')
-
-
-# # Creating Stream object
-# stream = MyStream(bearer_token=TWITTER_BEARER_TOKEN)
-
-# for term in search_terms:
-#     stream.add_rules(tweepy.StreamRule(term))
-
-# # Starting stream
-# stream.filter(tweet_fields=["referenced_tweets"])
+    print(tweet.created_at)
+    print(tweet.id)
