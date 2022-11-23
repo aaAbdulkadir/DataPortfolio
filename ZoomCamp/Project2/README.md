@@ -7,7 +7,7 @@ Producer collects streaming data and sent to kafka. The consumer will be used to
 - Create python virtual environment. 
 
 ```
-python3 -m venv
+python3 -m venv venv
 ```
 
 - Activate the virtual environment
@@ -21,7 +21,13 @@ source venv/bin/activate
 ```
 pip install -r data/requirements.txt
 ```
+## Scraper
 
+Going to have the top x amount of something and based on them, do sentiment analysis to look at peoples interactions. That will consist of:
+
+- Number of Tweets in different time frames
+- The actual tweet text
+- Sentiment
 
 
 

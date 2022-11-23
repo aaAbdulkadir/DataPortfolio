@@ -1,6 +1,7 @@
 import os
 import tweepy
 import pandas as pd
+from textblob import TextBlob
 
 '''
 Note: 2 million tweets cap per month for pulling tweets
@@ -28,13 +29,14 @@ client = tweepy.Client(
 # get a number of recent tweets for the topic: two time intervals: day and hour 
 def counts(topic, time_interval):
     query = f'{topic} -is:retweet -is:reply -is:quote lang:en'
-    return client.get_recent_tweets_count(query=query, granularity=time_interval).data
+    result = client.get_recent_tweets_count(query=query, granularity=time_interval).data
+    return pd.DataFrame(result)
 
 # get a df of user and tweet with followers and likes
 def response(topic):
     # get data from api
     responses = client.search_recent_tweets(
-        query=f'{topic} -is:retweet -is:reply -is:quote lang:en',
+        query=f'{topic} -is:retweet lang:en -has:hashtags -has:links -has:mentions -has:media -has:images',
         tweet_fields=['created_at', 'public_metrics', 'text'], 
         user_fields=['username', 'public_metrics','location','description'],
         expansions='author_id',
@@ -67,9 +69,32 @@ def response(topic):
             }
         )
 
-    return pd.DataFrame(result)
+    df = pd.DataFrame(result)
+
+    # add sentiment
+    df['subjectivity'] = df['text'].apply(subjectivity)
+    df['polarity'] = df['text'].apply(polarity)
+    df['score'] = df['polarity'].apply(score)
+
+    return df
 
 # sentiment analysis using tweets collected
-df = response('nba')
+def subjectivity(text):
+    return TextBlob(text).sentiment.subjectivity
+
+def polarity(text):
+    return TextBlob(text).sentiment.polarity
+
+def score(number):
+    if number > 0:
+        return 'Positive'
+    elif number < 0:
+        return 'Negative'
+    else:
+        return 'Neutral'
+
+
+# df = response('worldcup')
+# print(counts('worldcup', 'hour'))
 
 
