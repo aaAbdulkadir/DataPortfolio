@@ -93,8 +93,3 @@ def score(number):
     else:
         return 'Neutral'
 
-
-# df = response('worldcup')
-# print(counts('worldcup', 'hour'))
-
-
