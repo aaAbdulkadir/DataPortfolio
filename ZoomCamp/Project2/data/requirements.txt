@@ -1,3 +1,8 @@
 tweepy
 pandas
 textblob
+beautifulsoup4
+streamlit
+plotly
+matplotlib
+numpy

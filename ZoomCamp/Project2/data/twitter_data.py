@@ -93,3 +93,6 @@ def score(number):
     else:
         return 'Neutral'
 
+# print(counts('stockname', 'day'))
+# print(counts('stockname', 'hour'))
+# print(response('stockname'))
