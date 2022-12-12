@@ -30,7 +30,13 @@ client = tweepy.Client(
 def counts(topic, time_interval):
     query = f'{topic} -is:retweet -is:reply -is:quote lang:en'
     result = client.get_recent_tweets_count(query=query, granularity=time_interval).data
-    return pd.DataFrame(result)
+    df = pd.DataFrame(result)
+
+    # change date format
+    df['end'] = df['end'].apply(lambda x: x.split('T')[0].replace('-','/'))
+    df['start'] = df['start'].apply(lambda x: x.split('T')[0].replace('-','/'))
+
+    return df
 
 # get a df of user and tweet with followers and likes
 def response(topic):
@@ -70,6 +76,9 @@ def response(topic):
         )
 
     df = pd.DataFrame(result)
+
+    # change datetime to str
+    df['created_at'] = df['created_at'].dt.strftime("%Y/%m/%d")
 
     # add sentiment
     df['subjectivity'] = df['text'].apply(subjectivity)
