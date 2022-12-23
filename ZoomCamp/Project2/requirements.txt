@@ -7,3 +7,5 @@ plotly
 matplotlib
 numpy
 kafka-python
+streamlit-autorefresh
+pyspark

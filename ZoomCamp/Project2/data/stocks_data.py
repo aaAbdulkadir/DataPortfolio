@@ -23,7 +23,7 @@ def stock_data(ticker, interval, start, end):
 # intervals: 1d, 1wk, 1mo
 def all_stock_pull(interval):
     # get a list of top 100 nasdaq
-    list_of_stocks = pd.read_html('https://en.wikipedia.org/wiki/Nasdaq-100')[4]['Symbol'].to_list()
+    list_of_stocks = pd.read_html('https://en.wikipedia.org/wiki/Nasdaq-100')[4]['Ticker'].to_list()
 
     # get date today
     today = datetime.datetime.now().strftime("%Y-%m-%d")
