@@ -21,7 +21,7 @@ def stock_data(ticker, interval, start, end):
     return df
 
 # intervals: 1d, 1wk, 1mo
-def all_stock_pull(interval):
+def all_stock_pull(interval, days):
     # get a list of top 100 nasdaq
     list_of_stocks = pd.read_html('https://en.wikipedia.org/wiki/Nasdaq-100')[4]['Ticker'].to_list()
 
@@ -29,7 +29,7 @@ def all_stock_pull(interval):
     today = datetime.datetime.now().strftime("%Y-%m-%d")
 
     # get date one year ago
-    last_year = (datetime.datetime.now() - timedelta(days=365)).strftime("%Y-%m-%d")
+    last_year = (datetime.datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d")
 
     # all stocks combined
     dfs = []
@@ -38,6 +38,6 @@ def all_stock_pull(interval):
 
     return pd.concat(dfs)
 
-# print(all_stock_pull('1d'))
+# print(all_stock_pull('1d', 90))
 # print(all_stock_pull('1wk'))
 # print(all_stock_pull('1mo'))

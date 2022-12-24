@@ -3,12 +3,12 @@ import pandas as pd
 from kafka import KafkaConsumer
 from kafka import KafkaAdminClient
 
-import time
+# import time
 
 # topic
-STOCKS_DATA_KAFKA_TOPIC = "stock_data"
-TWITTER_COUNTS_KAFKA_TOPIC = "twitter_counts"
-TWITTER_TWEETS_KAFKA_TOPIC = "twitter_tweets"
+# STOCKS_DATA_KAFKA_TOPIC = "stock_data"
+# TWITTER_COUNTS_KAFKA_TOPIC = "twitter_counts"
+# TWITTER_TWEETS_KAFKA_TOPIC = "twitter_tweets"
 
 def read_from_kafka(which_data, topic):
     # reads kafka topic
@@ -35,4 +35,4 @@ def read_from_kafka(which_data, topic):
     print(pd.DataFrame(data))
     return pd.DataFrame(data)
 
-read_from_kafka('stock data', STOCKS_DATA_KAFKA_TOPIC)
+# read_from_kafka('stock data', STOCKS_DATA_KAFKA_TOPIC)
