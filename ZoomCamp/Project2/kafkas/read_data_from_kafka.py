@@ -15,7 +15,7 @@ def read_from_kafka(which_data, topic):
     consumer = KafkaConsumer(
         topic,
         bootstrap_servers="localhost:9092",
-        auto_offset_reset='earliest',
+        auto_offset_reset='earliest', # earliest reads all data from beginning
         enable_auto_commit=True,
         group_id='consumer.group.1',
         value_deserializer=lambda x: loads(x.decode("utf-8")),
@@ -30,8 +30,10 @@ def read_from_kafka(which_data, topic):
     print('Finished reading stream.')
 
     # clear kafka topic
-    admin_client = KafkaAdminClient(bootstrap_servers='localhost:9092')
-    admin_client.delete_topics(topics=[topic])
+    if len(data) > 20:
+        admin_client = KafkaAdminClient(bootstrap_servers='localhost:9092')
+        admin_client.delete_topics(topics=[topic])
+        
     print(pd.DataFrame(data))
     return pd.DataFrame(data)
 

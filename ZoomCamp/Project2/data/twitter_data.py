@@ -104,4 +104,4 @@ def score(number):
 
 # print(counts('stockname', 'day'))
 # print(counts('stockname', 'hour'))
-# print(response('stockname'))
+print(response('AAPL'))
