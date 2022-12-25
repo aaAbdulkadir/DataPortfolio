@@ -1,6 +1,5 @@
 import pandas as pd 
 import datetime
-from datetime import timedelta
 import time
 
 # gets df with stocks in list of stocks
@@ -20,24 +19,8 @@ def stock_data(ticker, interval, start, end):
 
     return df
 
-# intervals: 1d, 1wk, 1mo
-def all_stock_pull(interval, days):
-    # get a list of top 100 nasdaq
-    list_of_stocks = pd.read_html('https://en.wikipedia.org/wiki/Nasdaq-100')[4]['Ticker'].to_list()
-
-    # get date today
-    today = datetime.datetime.now().strftime("%Y-%m-%d")
-
-    # get date one year ago
-    last_year = (datetime.datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d")
-
-    # all stocks combined
+def concat_stocks(stock_selection, time_interval, start_date, end_date):
     dfs = []
-    for stock in list_of_stocks:
-        dfs.append(stock_data(stock, interval, last_year, today))
-
+    for stock in stock_selection:
+        dfs.append(stock_data(stock, time_interval, start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d")))
     return pd.concat(dfs)
-
-# print(all_stock_pull('1d', 90))
-# print(all_stock_pull('1wk'))
-# print(all_stock_pull('1mo'))

@@ -17,6 +17,7 @@ def write_to_kafka(which_data, dataframe, topic):
     # producer writes to kafka
     producer = KafkaProducer(
         bootstrap_servers="localhost:9092",
+        batch_size=131072,
         value_serializer=lambda x: dumps(x).encode("utf-8")
     )
     print(f'Going to be writing in {which_data} data...')
