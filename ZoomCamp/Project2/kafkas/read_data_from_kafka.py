@@ -29,12 +29,10 @@ def read_from_kafka(which_data, topic):
         data.append(message.value)
     print('Finished reading stream.')
 
-    # clear kafka topic
-    if len(data) > 20:
-        admin_client = KafkaAdminClient(bootstrap_servers='localhost:9092')
-        admin_client.delete_topics(topics=[topic])
-        
-    print(pd.DataFrame(data))
+    # # clear kafka topic
+    # admin_client = KafkaAdminClient(bootstrap_servers='localhost:9092')
+    # admin_client.delete_topics(topics=[topic])
+
     return pd.DataFrame(data)
 
 # read_from_kafka('stock data', STOCKS_DATA_KAFKA_TOPIC)

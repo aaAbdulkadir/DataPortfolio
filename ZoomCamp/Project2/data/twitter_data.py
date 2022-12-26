@@ -38,7 +38,7 @@ def counts(topic, time_interval):
 
     return df
 
-# get a df of user and tweet with followers and likes
+# get a df of user and tweet with followers and likes (only gives a sample of tweets in last 7 days - the same ones)
 def response(topic):
     # get data from api
     responses = client.search_recent_tweets(
