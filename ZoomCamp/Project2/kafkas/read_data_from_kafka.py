@@ -29,9 +29,9 @@ def read_from_kafka(which_data, topic):
         data.append(message.value)
     print('Finished reading stream.')
 
-    # # clear kafka topic
-    # admin_client = KafkaAdminClient(bootstrap_servers='localhost:9092')
-    # admin_client.delete_topics(topics=[topic])
+    # clear kafka topic
+    admin_client = KafkaAdminClient(bootstrap_servers='localhost:9092')
+    admin_client.delete_topics(topics=[topic])
 
     return pd.DataFrame(data)
 

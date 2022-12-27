@@ -9,6 +9,7 @@ import plotly.express as px
 st.set_page_config(
     page_title="Historical Data",
     layout="centered",
+    page_icon='🦈',
     initial_sidebar_state="expanded",
 )
 
@@ -59,31 +60,34 @@ with col2:
 if len(stock_selection) < 1 or start_date == end_date:
     st.caption('Make sure to pick at least one stock with two unique dates.')
 else:
-    dfs = []
-    for stock in stock_selection:
-        dfs.append(stock_data(stock, time_interval, start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d")))
-    final_df = pd.concat(dfs)
-    st.write('')
+    try:
+        dfs = []
+        for stock in stock_selection:
+            dfs.append(stock_data(stock, time_interval, start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d")))
+        final_df = pd.concat(dfs)
+        st.write('')
 
-    # visualisation
-    fig = px.line(
-            final_df,
-            x="Date", 
-            y="Close", 
-            color="Ticker",
-            line_group="Ticker", 
-        )
-    fig.update_layout(title_text='Closing Price vs Time Frame', title_x=0.5)
-    st.plotly_chart(fig)
+        # visualisation
+        fig = px.line(
+                final_df,
+                x="Date", 
+                y="Close", 
+                color="Ticker",
+                line_group="Ticker", 
+            )
+        fig.update_layout(title_text='Closing Price vs Time Frame', title_x=0.5)
+        st.plotly_chart(fig)
 
-    fig2 = px.line(
-            final_df,
-            x="Date", 
-            y="Volume", 
-            color="Ticker",
-            line_group="Ticker", 
-        )
-    fig2.update_layout(title_text='Volume vs Time Frame', title_x=0.5)
-    st.plotly_chart(fig2)
+        fig2 = px.line(
+                final_df,
+                x="Date", 
+                y="Volume", 
+                color="Ticker",
+                line_group="Ticker", 
+            )
+        fig2.update_layout(title_text='Volume vs Time Frame', title_x=0.5)
+        st.plotly_chart(fig2)
+    except:
+        st.caption('Date is not valid. Pick an earlier start date and determine maximum date as Yahoo finance usually has historical data up until a few days back.')
 
 

@@ -20,15 +20,6 @@ st.write('')
 # title
 st.markdown("<h1 style='text-align: center;'>Tweets</h1>", unsafe_allow_html=True)
 
-# refresh
-st_autorefresh(interval=12000, key="fizzbuzzcounter")
-
-# stock list
-list_of_stocks = pd.read_html('https://en.wikipedia.org/wiki/Nasdaq-100')[4]['Ticker'].to_list()
-stock_selection = st.selectbox(
-    'Select the stocks you would like to see tweets for',
-    list_of_stocks)
-
 # styling of tweets
 def twitter_style(username, text, date):
     if '\n' in text:
@@ -45,12 +36,17 @@ def twitter_style(username, text, date):
                 border-radius: 10px;'>@{username}: <br> <br> \"{text}\" <br> <br> Created at:{date}</p>
             """
 
+# stock list
+list_of_stocks = pd.read_html('https://en.wikipedia.org/wiki/Nasdaq-100')[4]['Ticker'].to_list()
+stock_selection = st.selectbox(
+    'Select the stocks you would like to see tweets for',
+    list_of_stocks)
+
 # tweets
 write_to_kafka('tweets', response(stock_selection), 'tweets2')
 df = read_from_kafka('twitter tweets', 'tweets2')
 for index, row in df.iterrows():
     st.markdown(twitter_style(row['username'], row['text'], row['created_at']), unsafe_allow_html=True)
     time.sleep(3)
-st.write('done')
 
 
