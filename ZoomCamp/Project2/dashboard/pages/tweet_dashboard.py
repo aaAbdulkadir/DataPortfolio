@@ -7,6 +7,7 @@ from kafkas.read_data_from_kafka import read_from_kafka
 from kafkas.write_data_to_kafka import write_to_kafka
 from streamlit_autorefresh import st_autorefresh
 import time
+import plotly.express as px
 
 # @st.cache
 st.set_page_config(
@@ -36,6 +37,9 @@ def twitter_style(username, text, date):
                 border-radius: 10px;'>@{username}: <br> <br> \"{text}\" <br> <br> Created at:{date}</p>
             """
 
+# refresh the page after looping through the sample of tweets to get a new sample
+st_autorefresh(interval=100000, key='refresh') 
+
 # stock list
 list_of_stocks = pd.read_html('https://en.wikipedia.org/wiki/Nasdaq-100')[4]['Ticker'].to_list()
 stock_selection = st.selectbox(
@@ -43,10 +47,12 @@ stock_selection = st.selectbox(
     list_of_stocks)
 
 # tweets
-write_to_kafka('tweets', response(stock_selection), 'tweets2')
-df = read_from_kafka('twitter tweets', 'tweets2')
-for index, row in df.iterrows():
-    st.markdown(twitter_style(row['username'], row['text'], row['created_at']), unsafe_allow_html=True)
-    time.sleep(3)
+with st.empty(): # removes tweet from page when looping
+    write_to_kafka('tweets', response(stock_selection), 'tweets2')
+    df = read_from_kafka('twitter tweets', 'tweets2')
+    for index, row in df.iterrows():
+        st.markdown(twitter_style(row['username'], row['text'], row['created_at']), unsafe_allow_html=True)
+        time.sleep(15)
+        
 
 

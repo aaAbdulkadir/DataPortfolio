@@ -24,3 +24,6 @@ def concat_stocks(stock_selection, time_interval, start_date, end_date):
     for stock in stock_selection:
         dfs.append(stock_data(stock, time_interval, start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d")))
     return pd.concat(dfs)
+
+# stock_selection =  pd.read_html('https://en.wikipedia.org/wiki/Nasdaq-100')[4]['Ticker'].to_list()
+# print(concat_stocks(stock_selection, '1d', datetime.date(2000,1,1), datetime.datetime.now()))

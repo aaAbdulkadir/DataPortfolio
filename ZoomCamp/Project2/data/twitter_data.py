@@ -40,9 +40,9 @@ def counts(topic, time_interval):
 
 # get a df of user and tweet with followers and likes (only gives a sample of tweets in last 7 days - the same ones)
 def response(topic):
-    # get data from api
+    # get data from api -> cannot use cashtag which is what is needed the most
     responses = client.search_recent_tweets(
-        query=f'{topic} -is:retweet lang:en -has:hashtags -has:links -has:mentions -has:media -has:images',
+        query=f'{topic} -is:retweet lang:en has:hashtags -has:links -has:mentions -has:media -has:images',
         tweet_fields=['created_at', 'public_metrics', 'text'], 
         user_fields=['username', 'public_metrics','location','description'],
         expansions='author_id',
@@ -103,5 +103,5 @@ def score(number):
         return 'Neutral'
 
 # print(counts('stockname', 'day'))
-# print(counts('stockname', 'hour'))
+print(counts('AAPL', 'hour'))
 print(response('AAPL'))
