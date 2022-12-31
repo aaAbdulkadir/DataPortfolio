@@ -35,3 +35,10 @@ Going to have the top x amount of something and based on them, do sentiment anal
 ## Kafka
 
 ## Web Dashboard
+
+- no cashtag
+- limited api usage, 2mil tweets per month
+
+
+improvement:
+- run kafka write on another script so queries are faster for dashboard when reading it in

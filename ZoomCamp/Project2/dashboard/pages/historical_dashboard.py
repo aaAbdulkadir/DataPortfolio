@@ -43,7 +43,7 @@ elif time_interval == 'Monthly':
 
 # stock dates
 max_val = datetime.datetime.now()
-min_val= (datetime.date(2000,1,1))
+min_val= datetime.date(2000,1,1)
 
 col1, col2 = st.columns(2)
 with col1:

@@ -7,7 +7,6 @@ from kafkas.read_data_from_kafka import read_from_kafka
 from kafkas.write_data_to_kafka import write_to_kafka
 from streamlit_autorefresh import st_autorefresh
 import time
-import plotly.express as px
 
 # @st.cache
 st.set_page_config(
@@ -43,7 +42,7 @@ st_autorefresh(interval=100000, key='refresh')
 # stock list
 list_of_stocks = pd.read_html('https://en.wikipedia.org/wiki/Nasdaq-100')[4]['Ticker'].to_list()
 stock_selection = st.selectbox(
-    'Select the stocks you would like to see tweets for',
+    'Select the stock you would like to see tweets for',
     list_of_stocks)
 
 # tweets
