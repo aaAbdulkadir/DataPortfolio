@@ -1,0 +1,12 @@
+tweepy
+pandas
+textblob
+beautifulsoup4
+streamlit
+plotly
+matplotlib
+numpy
+kafka-python
+streamlit-autorefresh
+lxml
+snscrape
