@@ -1,5 +1,8 @@
 from script import *
 import pandas as pd
+from matplotlib.testing.compare import compare_images
+import numpy as np
+import os
 
 # check if the output of load_dataset('titanic') is an instance of the pd.DataFrame class.
 # If the output is not a DataFrame object, then the function returns False, and the test fails.
@@ -44,4 +47,28 @@ def test_expected_column_data_types():
 def test_min_num_rows():
     df = load_dataset('titanic')
     min_num_rows = 500
-    assert len_of_rows(df) >= min_num_rows
+    assert len_of_rows(df) >= min_num_rows, "If failed, this message will run"
+
+def test_plot_bar_chart_titanic():
+    # Generate the test data
+    df = load_dataset('titanic')
+    var1 = 'class'
+    var2 = 'fare'
+
+    # Generate the expected image
+    plt.bar(df[var1], df[var2])
+    expected_file = 'expected_bar_chart.png'
+    plt.savefig(expected_file)
+
+    # Generate the actual image
+    actual_file = 'actual_bar_chart.png'
+    plot_bar_chart(df, var1, var2)
+    plt.savefig(actual_file)
+
+    # Compare the images
+    is_same = compare_images(expected_file, actual_file, tol=1e-3)
+    assert is_same
+
+    # Clean up the image files
+    os.remove(expected_file)
+    os.remove(actual_file)
